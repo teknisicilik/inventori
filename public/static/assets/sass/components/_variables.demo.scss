@@ -1,0 +1,53 @@
+//
+// Override global variables
+//
+
+// Theme colors
+$body-bg: #f5f3f2;
+
+$primary: #4649A3;
+$primary-light: #F1F1F9;
+$primary-hover: #27295B;
+$primary-inverse: #FFFFFF;
+
+$secondary: #9AA74E;
+$secondary-light: #F7F9F1;
+$secondary-hover: #464C22;
+$secondary-inverse: #FFFFFF;
+
+$info: #247DCE;
+$info-light: #F2F8FD;
+$info-hover: #13426C;
+$info-inverse: #FFFFFF;
+
+$warning: #EEB42C;
+$warning-light: #FEFAF1;
+$warning-hover: #765509;
+$warning-inverse: #FFFFFF;
+
+$danger: #C44233;
+$danger-light: #fde2de;
+$danger-hover: #65221A;
+$danger-inverse: #FFFFFF;
+
+$success: #1AB45A;
+$success-light: #F2FDF6;
+$success-hover: #106F38;
+$success-inverse: #FFFFFF;
+
+$text: #2D2D2D;
+$text-light: #CCCCCC;
+$text-hover: #000000;
+$text-inverse: #FFFFFF;
+
+:root {
+    --primary: #{$primary};
+    --primary-light: #{$primary-light};
+    --info: #{$info};
+    --info-light: #{$info-light};
+    --body-bg: #{$body-bg};
+    --danger-theme: #{$danger};
+    --success-theme: #{$success};
+    --info-theme: #{$info};
+    --warning-theme: #{$warning};
+}

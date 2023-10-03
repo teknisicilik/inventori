@@ -1,0 +1,43 @@
+@baseurl=http://localhost:8100/api
+@token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODEwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYzMzU5MjEwMCwiZXhwIjoxNjY0Njk2MTAwLCJuYmYiOjE2MzM1OTIxMDAsImp0aSI6ImpsZmk0WUNsd3hncnRjSzIiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kPb4X5L6BeAeTJ8JIuRJXw4D8PbKdm_UNpnXBwTxobI
+
+POST {{baseurl}}/login
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "password" : "plamongan17"
+}
+
+### Get Departemen
+# @params
+#
+GET {{baseurl}}/departments/list
+Authorization: Bearer {{token}}
+
+####
+POST {{baseurl}}/departments/create
+Authorization: Bearer {{token}}
+
+{
+
+}
+
+###
+POST {{baseurl}}/upload
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="h85js2mn.png"
+Content-Type: image/png
+
+< ./h85js2mn.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+###
