@@ -17,7 +17,7 @@ class CreateBarang extends Migration
             $table->id();
             $table->string('kategori_barang_id')->constrained('kategori_barang');
             $table->string('kode');
-            $table->string('nama');
+            $table->string('nama_barang');
             $table->string('hs_kode');
             $table->string('satuan');
             $table->foreignId('created_by')->nullable()->constrained('users');
