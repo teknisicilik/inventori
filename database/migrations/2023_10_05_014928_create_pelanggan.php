@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class CreateBarang extends Migration
+class CreatePelanggan extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,11 @@ class CreateBarang extends Migration
      */
     public function up()
     {
-        Schema::create('barang', function (Blueprint $table) {
+        Schema::create('pelanggan', function (Blueprint $table) {
             $table->id();
-            $table->string('kategori_barang_id')->constrained('kategori_barang');
             $table->string('kode');
             $table->string('nama');
-            $table->string('hs_kode');
-            $table->string('satuan');
+            $table->string('alamat');
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
@@ -28,22 +26,18 @@ class CreateBarang extends Migration
         $data = [
             [
                 "id" => 1,
-                "kategori_barang_id" => 1,
-                "kode" => "CA",
-                "nama" => "Canal",
-                "hs_kode" => "734571",
-                "satuan" => "KG"
+                "kode" => "ASML",
+                "nama" => "Auri SML",
+                "alamat" => "Lombok"
             ],
             [
                 "id" => 2,
-                "kategori_barang_id" => 2,
-                "kode" => "AG",
-                "nama" => "Atap Galvalum",
-                "hs_kode" => "734571",
-                "satuan" => "KG"
+                "kode" => "ASMT",
+                "nama" => "Auri SMT",
+                "alamat" => "Terboyo"
             ]
         ];
-        DB::table('barang')->insert($data);
+        DB::table('pelanggan')->insert($data);
     }
 
     /**
@@ -53,6 +47,6 @@ class CreateBarang extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang');
+        Schema::dropIfExists('pelanggan');
     }
 }

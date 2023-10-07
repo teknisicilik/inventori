@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -12,21 +12,21 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 
-class Barang extends Model
+class Pelanggan extends Model
 {
-    protected $table = 'barang';
-
-    const TABLE = "barang";
-    const FILEROOT = "/barang";
+    protected $table = 'pelanggan';
+     
+    const TABLE = "pelanggan";
+    const FILEROOT = "/pelanggan";
     const IS_LIST = true;
     const IS_ADD = true;
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
-    const FIELD_ADD = ["created_by", "updated_by", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan"];
-    const FIELD_EDIT = ["updated_by", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan"];
-    const FIELD_VIEW = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
+    const FIELD_LIST = ["created_by", "updated_by", "id", "kode", "nama", "alamat", "created_at", "updated_at"];
+    const FIELD_ADD = ["created_by", "updated_by", "kode", "nama", "alamat"];
+    const FIELD_EDIT = ["updated_by", "kode", "nama", "alamat"];
+    const FIELD_VIEW = ["created_by", "updated_by", "id", "kode", "nama", "alamat", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
         "created_by" => [
@@ -38,19 +38,13 @@ class Barang extends Model
         "id" => [
             "operator" => "=",
         ],
-        "kategori_barang_id" => [
-            "operator" => "=",
-        ],
         "kode" => [
             "operator" => "=",
         ],
         "nama" => [
             "operator" => "=",
         ],
-        "hs_kode" => [
-            "operator" => "=",
-        ],
-        "satuan" => [
+        "alamat" => [
             "operator" => "=",
         ],
         "created_at" => [
@@ -62,18 +56,16 @@ class Barang extends Model
     ];
     const FIELD_SEARCHABLE = [];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["created_by", "updated_by", "id", "kode", "nama", "alamat", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
         "created_by" => "bigint",
         "updated_by" => "bigint",
         "id" => "bigint",
-        "kategori_barang_id" => "varchar",
         "kode" => "varchar",
         "nama" => "varchar",
-        "hs_kode" => "varchar",
-        "satuan" => "varchar",
+        "alamat" => "varchar",
         "created_at" => "timestamp",
         "updated_at" => "timestamp",
     ];
@@ -81,11 +73,9 @@ class Barang extends Model
     const FIELD_DEFAULT_VALUE = [
         "created_by" => "NULL",
         "updated_by" => "NULL",
-        "kategori_barang_id" => "",
         "kode" => "",
         "nama" => "",
-        "hs_kode" => "",
-        "satuan" => "",
+        "alamat" => "",
         "created_at" => "NULL",
         "updated_at" => "NULL",
     ];
@@ -106,24 +96,14 @@ class Barang extends Model
             "selectFields" => ["username"],
             "selectValue" => "id AS rel_updated_by"
         ],
-        "kategori_barang_id" => [
-            "linkTable" => "kategori_barang",
-            "aliasTable" => "D",
-            "linkField" => "id",
-            "displayName" => "rel_kategori_barang_id",
-            "selectFields" => ["nama"],
-            "selectValue" => "id AS rel_kategori_barang_id"
-        ]
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
         "created_by" => "nullable|integer|exists:users,id",
         "updated_by" => "nullable|integer|exists:users,id",
-        "kategori_barang_id" => "required|max:255",
         "kode" => "required|max:255",
         "nama" => "required|max:255",
-        "hs_kode" => "required|max:255",
-        "satuan" => "required|max:255",
+        "alamat" => "required|max:255",
         "created_at" => "nullable|date",
         "updated_at" => "nullable|date",
     ];
@@ -148,17 +128,17 @@ class Barang extends Model
     {
         return $input;
     }
-
+    
     public static function beforeUpdate($input)
     {
         return $input;
     }
-
+    
     public static function afterUpdate($object, $input)
     {
         return $input;
     }
-
+    
     public static function beforeDelete($input)
     {
         return $input;

@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
-class CreateKategoriBarang extends Migration
+class CreatePemasukanDetail extends Migration
 {
     /**
      * Run the migrations.
@@ -14,24 +13,16 @@ class CreateKategoriBarang extends Migration
      */
     public function up()
     {
-        Schema::create('kategori_barang', function (Blueprint $table) {
+        Schema::create('pemasukan_detail', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('pemasukan_id')->constrained('pemasukan');
+            $table->string('barang_id')->constrained('barang');
+            $table->integer('jumlah');
+            $table->integer('total_nilai');
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
         });
-        $data = [
-            [
-                "id" => 1,
-                "nama" => "Bahan Baku"
-            ],
-            [
-                "id" => 2,
-                "nama" => "Barang Jadi"
-            ]
-        ];
-        DB::table('kategori_barang')->insert($data);
     }
 
     /**
@@ -41,6 +32,6 @@ class CreateKategoriBarang extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kategori_barang');
+        Schema::dropIfExists('pemasukan_detail');
     }
 }

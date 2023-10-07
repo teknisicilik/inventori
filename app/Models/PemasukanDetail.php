@@ -12,21 +12,21 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 
-class Barang extends Model
+class PemasukanDetail extends Model
 {
-    protected $table = 'barang';
+    protected $table = 'pemasukan_detail';
 
-    const TABLE = "barang";
-    const FILEROOT = "/barang";
+    const TABLE = "pemasukan_detail";
+    const FILEROOT = "/pemasukan_detail";
     const IS_LIST = true;
     const IS_ADD = true;
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
-    const FIELD_ADD = ["created_by", "updated_by", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan"];
-    const FIELD_EDIT = ["updated_by", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan"];
-    const FIELD_VIEW = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
+    const FIELD_LIST = ["created_by", "updated_by", "id", "pemasukan_id", "barang_id", "jumlah", "total_nilai", "created_at", "updated_at"];
+    const FIELD_ADD = ["created_by", "updated_by", "pemasukan_id", "barang_id", "jumlah", "total_nilai"];
+    const FIELD_EDIT = ["updated_by", "pemasukan_id", "barang_id", "jumlah", "total_nilai"];
+    const FIELD_VIEW = ["created_by", "updated_by", "id", "pemasukan_id", "barang_id", "jumlah", "total_nilai", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
         "created_by" => [
@@ -38,19 +38,16 @@ class Barang extends Model
         "id" => [
             "operator" => "=",
         ],
-        "kategori_barang_id" => [
+        "pemasukan_id" => [
             "operator" => "=",
         ],
-        "kode" => [
+        "barang_id" => [
             "operator" => "=",
         ],
-        "nama" => [
+        "jumlah" => [
             "operator" => "=",
         ],
-        "hs_kode" => [
-            "operator" => "=",
-        ],
-        "satuan" => [
+        "total_nilai" => [
             "operator" => "=",
         ],
         "created_at" => [
@@ -62,18 +59,17 @@ class Barang extends Model
     ];
     const FIELD_SEARCHABLE = [];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["created_by", "updated_by", "id", "pemasukan_id", "barang_id", "jumlah", "total_nilai", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
         "created_by" => "bigint",
         "updated_by" => "bigint",
         "id" => "bigint",
-        "kategori_barang_id" => "varchar",
-        "kode" => "varchar",
-        "nama" => "varchar",
-        "hs_kode" => "varchar",
-        "satuan" => "varchar",
+        "pemasukan_id" => "varchar",
+        "barang_id" => "varchar",
+        "jumlah" => "int",
+        "total_nilai" => "int",
         "created_at" => "timestamp",
         "updated_at" => "timestamp",
     ];
@@ -81,11 +77,10 @@ class Barang extends Model
     const FIELD_DEFAULT_VALUE = [
         "created_by" => "NULL",
         "updated_by" => "NULL",
-        "kategori_barang_id" => "",
-        "kode" => "",
-        "nama" => "",
-        "hs_kode" => "",
-        "satuan" => "",
+        "pemasukan_id" => "",
+        "barang_id" => "",
+        "jumlah" => "",
+        "total_nilai" => "",
         "created_at" => "NULL",
         "updated_at" => "NULL",
     ];
@@ -106,24 +101,31 @@ class Barang extends Model
             "selectFields" => ["username"],
             "selectValue" => "id AS rel_updated_by"
         ],
-        "kategori_barang_id" => [
-            "linkTable" => "kategori_barang",
+        "pemasukan_id" => [
+            "linkTable" => "pemasukan",
             "aliasTable" => "D",
             "linkField" => "id",
-            "displayName" => "rel_kategori_barang_id",
+            "displayName" => "rel_pemasukan",
+            "selectFields" => ["no_pembelian"],
+            "selectValue" => "id AS rel_pemasukan"
+        ],
+        "barang_id" => [
+            "linkTable" => "barang",
+            "aliasTable" => "E",
+            "linkField" => "id",
+            "displayName" => "rel_barang",
             "selectFields" => ["nama"],
-            "selectValue" => "id AS rel_kategori_barang_id"
-        ]
+            "selectValue" => "id AS rel_barang"
+        ],
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
         "created_by" => "nullable|integer|exists:users,id",
         "updated_by" => "nullable|integer|exists:users,id",
-        "kategori_barang_id" => "required|max:255",
-        "kode" => "required|max:255",
-        "nama" => "required|max:255",
-        "hs_kode" => "required|max:255",
-        "satuan" => "required|max:255",
+        "pemasukan_id" => "required|max:255",
+        "barang_id" => "required|max:255",
+        "jumlah" => "required",
+        "total_nilai" => "required",
         "created_at" => "nullable|date",
         "updated_at" => "nullable|date",
     ];
