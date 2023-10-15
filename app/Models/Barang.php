@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class Barang extends Model
 {
     protected $table = 'barang';
-
+     
     const TABLE = "barang";
     const FILEROOT = "/barang";
     const IS_LIST = true;
@@ -23,22 +23,22 @@ class Barang extends Model
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
-    const FIELD_ADD = ["created_by", "updated_by", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan"];
-    const FIELD_EDIT = ["updated_by", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan"];
-    const FIELD_VIEW = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
+    const FIELD_LIST = ["created_by", "kategori_barang_id", "updated_by", "id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
+    const FIELD_ADD = ["created_by", "kategori_barang_id", "updated_by", "kode", "nama", "hs_kode", "satuan"];
+    const FIELD_EDIT = ["kategori_barang_id", "updated_by", "kode", "nama", "hs_kode", "satuan"];
+    const FIELD_VIEW = ["created_by", "kategori_barang_id", "updated_by", "id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
         "created_by" => [
+            "operator" => "=",
+        ],
+        "kategori_barang_id" => [
             "operator" => "=",
         ],
         "updated_by" => [
             "operator" => "=",
         ],
         "id" => [
-            "operator" => "=",
-        ],
-        "kategori_barang_id" => [
             "operator" => "=",
         ],
         "kode" => [
@@ -62,14 +62,14 @@ class Barang extends Model
     ];
     const FIELD_SEARCHABLE = [];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["created_by", "updated_by", "id", "kategori_barang_id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["created_by", "kategori_barang_id", "updated_by", "id", "kode", "nama", "hs_kode", "satuan", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
         "created_by" => "bigint",
+        "kategori_barang_id" => "bigint",
         "updated_by" => "bigint",
         "id" => "bigint",
-        "kategori_barang_id" => "varchar",
         "kode" => "varchar",
         "nama" => "varchar",
         "hs_kode" => "varchar",
@@ -80,8 +80,8 @@ class Barang extends Model
 
     const FIELD_DEFAULT_VALUE = [
         "created_by" => "NULL",
-        "updated_by" => "NULL",
         "kategori_barang_id" => "",
+        "updated_by" => "NULL",
         "kode" => "",
         "nama" => "",
         "hs_kode" => "",
@@ -98,28 +98,28 @@ class Barang extends Model
             "selectFields" => ["username"],
             "selectValue" => "id AS rel_created_by"
         ],
+        "kategori_barang_id" => [
+            "linkTable" => "kategori_barang",
+            "aliasTable" => "C",
+            "linkField" => "id",
+            "displayName" => "rel_kategori_barang_id",
+            "selectFields" => ["nama"],
+            "selectValue" => "id AS rel_kategori_barang_id"
+        ],
         "updated_by" => [
             "linkTable" => "users",
-            "aliasTable" => "C",
+            "aliasTable" => "D",
             "linkField" => "id",
             "displayName" => "rel_updated_by",
             "selectFields" => ["username"],
             "selectValue" => "id AS rel_updated_by"
         ],
-        "kategori_barang_id" => [
-            "linkTable" => "kategori_barang",
-            "aliasTable" => "D",
-            "linkField" => "id",
-            "displayName" => "rel_kategori_barang_id",
-            "selectFields" => ["nama"],
-            "selectValue" => "id AS rel_kategori_barang_id"
-        ]
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
         "created_by" => "nullable|integer|exists:users,id",
+        "kategori_barang_id" => "required|integer|exists:kategori_barang,id",
         "updated_by" => "nullable|integer|exists:users,id",
-        "kategori_barang_id" => "required|max:255",
         "kode" => "required|max:255",
         "nama" => "required|max:255",
         "hs_kode" => "required|max:255",

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePemasukanDetail extends Migration
+class CreateKodeGroup extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePemasukanDetail extends Migration
      */
     public function up()
     {
-        Schema::create('pemasukan_detail', function (Blueprint $table) {
+        Schema::create('kode_group', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pemasukan_id')->constrained('pemasukan')->cascadeOnDelete();
+            $table->string('name');
             $table->foreignId('barang_id')->constrained('barang');
-            $table->integer('jumlah');
-            $table->integer('total_nilai');
+            $table->double('stok_akhir');
+            $table->double('nilai_akhir');
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreatePemasukanDetail extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pemasukan_detail');
+        Schema::dropIfExists('kode_group');
     }
 }

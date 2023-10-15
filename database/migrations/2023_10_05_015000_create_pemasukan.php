@@ -18,7 +18,7 @@ class CreatePemasukan extends Migration
             $table->id();
             $table->string('no_pembelian');
             $table->date('tgl_pembelian');
-            $table->string('pelanggan_id')->constrained('pelanggan');
+            $table->foreignId('pelanggan_id')->constrained('pelanggan');
             $table->string('no_dokumen');
             $table->string('tipe_dokumen');
             $table->string('no_invoice');

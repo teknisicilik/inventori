@@ -10,33 +10,29 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Models\KodeGroup;
 
 
-class PemasukanDetail extends Model
+class Produksi extends Model
 {
-    protected $table = 'pemasukan_detail';
+    protected $table = 'produksi';
 
-    const TABLE = "pemasukan_detail";
-    const FILEROOT = "/pemasukan_detail";
+    const TABLE = "produksi";
+    const FILEROOT = "/produksi";
     const IS_LIST = true;
     const IS_ADD = true;
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["barang_id", "created_by", "pemasukan_id", "updated_by", "id", "jumlah", "total_nilai", "created_at", "updated_at"];
-    const FIELD_ADD = ["barang_id", "created_by", "pemasukan_id", "updated_by", "jumlah", "total_nilai"];
-    const FIELD_EDIT = ["barang_id", "pemasukan_id", "updated_by", "jumlah", "total_nilai"];
-    const FIELD_VIEW = ["barang_id", "created_by", "pemasukan_id", "updated_by", "id", "jumlah", "total_nilai", "created_at", "updated_at"];
+    const FIELD_LIST = ["created_by", "kode_group_id", "updated_by", "id", "no_produksi", "tgl_produksi", "created_at", "updated_at"];
+    const FIELD_ADD = ["created_by", "kode_group_id", "updated_by", "no_produksi", "tgl_produksi"];
+    const FIELD_EDIT = ["kode_group_id", "updated_by", "no_produksi", "tgl_produksi"];
+    const FIELD_VIEW = ["created_by", "kode_group_id", "updated_by", "id", "no_produksi", "tgl_produksi", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
-        "barang_id" => [
-            "operator" => "=",
-        ],
         "created_by" => [
             "operator" => "=",
         ],
-        "pemasukan_id" => [
+        "kode_group_id" => [
             "operator" => "=",
         ],
         "updated_by" => [
@@ -45,10 +41,10 @@ class PemasukanDetail extends Model
         "id" => [
             "operator" => "=",
         ],
-        "jumlah" => [
+        "no_produksi" => [
             "operator" => "=",
         ],
-        "total_nilai" => [
+        "tgl_produksi" => [
             "operator" => "=",
         ],
         "created_at" => [
@@ -60,59 +56,49 @@ class PemasukanDetail extends Model
     ];
     const FIELD_SEARCHABLE = [];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["barang_id", "created_by", "pemasukan_id", "updated_by", "id", "jumlah", "total_nilai", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["created_by", "kode_group_id", "updated_by", "id", "no_produksi", "tgl_produksi", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
-        "barang_id" => "bigint",
         "created_by" => "bigint",
-        "pemasukan_id" => "bigint",
+        "kode_group_id" => "bigint",
         "updated_by" => "bigint",
         "id" => "bigint",
-        "jumlah" => "int",
-        "total_nilai" => "int",
+        "no_produksi" => "varchar",
+        "tgl_produksi" => "date",
         "created_at" => "timestamp",
         "updated_at" => "timestamp",
     ];
 
     const FIELD_DEFAULT_VALUE = [
-        "barang_id" => "",
         "created_by" => "NULL",
-        "pemasukan_id" => "",
+        "kode_group_id" => "",
         "updated_by" => "NULL",
-        "jumlah" => "",
-        "total_nilai" => "",
+        "no_produksi" => "",
+        "tgl_produksi" => "",
         "created_at" => "NULL",
         "updated_at" => "NULL",
     ];
     const FIELD_RELATION = [
-        "barang_id" => [
-            "linkTable" => "barang",
-            "aliasTable" => "B",
-            "linkField" => "id",
-            "displayName" => "rel_barang_id",
-            "selectFields" => ["nama"],
-            "selectValue" => "id AS rel_barang_id"
-        ],
         "created_by" => [
             "linkTable" => "users",
-            "aliasTable" => "C",
+            "aliasTable" => "B",
             "linkField" => "id",
             "displayName" => "rel_created_by",
             "selectFields" => ["username"],
             "selectValue" => "id AS rel_created_by"
         ],
-        "pemasukan_id" => [
-            "linkTable" => "pemasukan",
-            "aliasTable" => "D",
+        "kode_group_id" => [
+            "linkTable" => "kode_group",
+            "aliasTable" => "C",
             "linkField" => "id",
-            "displayName" => "rel_pemasukan_id",
-            "selectFields" => ["id"],
-            "selectValue" => "id AS rel_pemasukan_id"
+            "displayName" => "rel_kode_group_id",
+            "selectFields" => ["barang_id"],
+            "selectValue" => "id AS rel_kode_group_id"
         ],
         "updated_by" => [
             "linkTable" => "users",
-            "aliasTable" => "E",
+            "aliasTable" => "D",
             "linkField" => "id",
             "displayName" => "rel_updated_by",
             "selectFields" => ["username"],
@@ -121,12 +107,11 @@ class PemasukanDetail extends Model
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
-        "barang_id" => "required|integer|exists:barang,id",
         "created_by" => "nullable|integer|exists:users,id",
-        "pemasukan_id" => "required|integer|exists:pemasukan,id",
+        "kode_group_id" => "required|integer|exists:kode_group,id",
         "updated_by" => "nullable|integer|exists:users,id",
-        "jumlah" => "required",
-        "total_nilai" => "required",
+        "no_produksi" => "required|max:255",
+        "tgl_produksi" => "required",
         "created_at" => "nullable|date",
         "updated_at" => "nullable|date",
     ];
@@ -141,6 +126,7 @@ class PemasukanDetail extends Model
         //    "foreignField" => "field"
         //]
     ];
+
     public static function beforeInsert($input)
     {
         return $input;

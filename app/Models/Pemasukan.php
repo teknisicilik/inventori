@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class Pemasukan extends Model
 {
     protected $table = 'pemasukan';
-
+     
     const TABLE = "pemasukan";
     const FILEROOT = "/pemasukan";
     const IS_LIST = true;
@@ -23,13 +23,16 @@ class Pemasukan extends Model
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["created_by", "updated_by", "id", "no_pembelian", "tgl_pembelian", "pelanggan_id", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs", "created_at", "updated_at"];
-    const FIELD_ADD = ["created_by", "updated_by", "no_pembelian", "tgl_pembelian", "pelanggan_id", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs"];
-    const FIELD_EDIT = ["updated_by", "no_pembelian", "tgl_pembelian", "pelanggan_id", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs"];
-    const FIELD_VIEW = ["created_by", "updated_by", "id", "no_pembelian", "tgl_pembelian", "pelanggan_id", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs", "created_at", "updated_at"];
+    const FIELD_LIST = ["created_by", "pelanggan_id", "updated_by", "id", "no_pembelian", "tgl_pembelian", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs", "created_at", "updated_at"];
+    const FIELD_ADD = ["created_by", "pelanggan_id", "updated_by", "no_pembelian", "tgl_pembelian", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs"];
+    const FIELD_EDIT = ["pelanggan_id", "updated_by", "no_pembelian", "tgl_pembelian", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs"];
+    const FIELD_VIEW = ["created_by", "pelanggan_id", "updated_by", "id", "no_pembelian", "tgl_pembelian", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
         "created_by" => [
+            "operator" => "=",
+        ],
+        "pelanggan_id" => [
             "operator" => "=",
         ],
         "updated_by" => [
@@ -42,9 +45,6 @@ class Pemasukan extends Model
             "operator" => "=",
         ],
         "tgl_pembelian" => [
-            "operator" => "=",
-        ],
-        "pelanggan_id" => [
             "operator" => "=",
         ],
         "no_dokumen" => [
@@ -68,16 +68,16 @@ class Pemasukan extends Model
     ];
     const FIELD_SEARCHABLE = [];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["created_by", "updated_by", "id", "no_pembelian", "tgl_pembelian", "pelanggan_id", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["created_by", "pelanggan_id", "updated_by", "id", "no_pembelian", "tgl_pembelian", "no_dokumen", "tipe_dokumen", "no_invoice", "kurs", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
         "created_by" => "bigint",
+        "pelanggan_id" => "bigint",
         "updated_by" => "bigint",
         "id" => "bigint",
         "no_pembelian" => "varchar",
         "tgl_pembelian" => "date",
-        "pelanggan_id" => "varchar",
         "no_dokumen" => "varchar",
         "tipe_dokumen" => "varchar",
         "no_invoice" => "varchar",
@@ -88,10 +88,10 @@ class Pemasukan extends Model
 
     const FIELD_DEFAULT_VALUE = [
         "created_by" => "NULL",
+        "pelanggan_id" => "",
         "updated_by" => "NULL",
         "no_pembelian" => "",
         "tgl_pembelian" => "",
-        "pelanggan_id" => "",
         "no_dokumen" => "",
         "tipe_dokumen" => "",
         "no_invoice" => "",
@@ -108,30 +108,30 @@ class Pemasukan extends Model
             "selectFields" => ["username"],
             "selectValue" => "id AS rel_created_by"
         ],
+        "pelanggan_id" => [
+            "linkTable" => "pelanggan",
+            "aliasTable" => "C",
+            "linkField" => "id",
+            "displayName" => "rel_pelanggan_id",
+            "selectFields" => ["nama"],
+            "selectValue" => "id AS rel_pelanggan_id"
+        ],
         "updated_by" => [
             "linkTable" => "users",
-            "aliasTable" => "C",
+            "aliasTable" => "D",
             "linkField" => "id",
             "displayName" => "rel_updated_by",
             "selectFields" => ["username"],
             "selectValue" => "id AS rel_updated_by"
         ],
-        "pelanggan_id" => [
-            "linkTable" => "pelanggan",
-            "aliasTable" => "D",
-            "linkField" => "id",
-            "displayName" => "rel_pelanggan",
-            "selectFields" => ["nama"],
-            "selectValue" => "id AS rel_pelanggan"
-        ]
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
         "created_by" => "nullable|integer|exists:users,id",
+        "pelanggan_id" => "required|integer|exists:pelanggan,id",
         "updated_by" => "nullable|integer|exists:users,id",
         "no_pembelian" => "required|max:255",
         "tgl_pembelian" => "required",
-        "pelanggan_id" => "required|max:255",
         "no_dokumen" => "required|max:255",
         "tipe_dokumen" => "required|max:255",
         "no_invoice" => "required|max:255",
