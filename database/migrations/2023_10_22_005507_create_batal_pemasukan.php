@@ -1,11 +1,10 @@
 <?php
 
-use FontLib\Table\Type\name;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePemasukan extends Migration
+class CreateBatalPemasukan extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +13,7 @@ class CreatePemasukan extends Migration
      */
     public function up()
     {
-        Schema::create('pemasukan', function (Blueprint $table) {
+        Schema::create('batal_pemasukan', function (Blueprint $table) {
             $table->id();
             $table->string('no_pembelian');
             $table->date('tgl_pembelian');
@@ -34,6 +33,6 @@ class CreatePemasukan extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pemasukan');
+        Schema::dropIfExists('batal_pemasukan');
     }
 }

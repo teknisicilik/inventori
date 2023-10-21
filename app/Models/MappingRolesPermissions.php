@@ -57,17 +57,17 @@ class MappingRolesPermissions extends Model
         "id" => "bigint",
         "role_id" => "bigint",
         "permission_id" => "bigint",
-        "active" => "int",
-        "created_at" => "timestamp",
-        "updated_at" => "timestamp",
+        "active" => "integer",
+        "created_at" => "timestamp_without_time_zone",
+        "updated_at" => "timestamp_without_time_zone",
     ];
 
     const FIELD_DEFAULT_VALUE = [
         "role_id" => "",
         "permission_id" => "",
         "active" => "1",
-        "created_at" => "NULL",
-        "updated_at" => "NULL",
+        "created_at" => "",
+        "updated_at" => "",
     ];
     const FIELD_RELATION = [
     ];
@@ -75,9 +75,9 @@ class MappingRolesPermissions extends Model
     const FIELD_VALIDATION = [
         "role_id" => "required|integer",
         "permission_id" => "required|integer",
-        "active" => "nullable",
-        "created_at" => "nullable|date",
-        "updated_at" => "nullable|date",
+        "active" => "nullable|integer",
+        "created_at" => "nullable",
+        "updated_at" => "nullable",
     ];
     const PARENT_CHILD = [];
     // start custom

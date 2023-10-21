@@ -23,15 +23,12 @@ class Roles extends Model
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["role_group_id", "id", "role_code", "role_name", "description", "active", "created_by", "updated_by", "created_at", "updated_at"];
-    const FIELD_ADD = ["role_group_id", "role_code", "role_name", "description", "active", "created_by", "updated_by"];
-    const FIELD_EDIT = ["role_group_id", "role_code", "role_name", "description", "active", "updated_by"];
-    const FIELD_VIEW = ["role_group_id", "id", "role_code", "role_name", "description", "active", "created_by", "updated_by", "created_at", "updated_at"];
+    const FIELD_LIST = ["id", "role_code", "role_name", "role_group_id", "description", "active", "created_by", "updated_by", "created_at", "updated_at"];
+    const FIELD_ADD = ["role_code", "role_name", "role_group_id", "description", "active", "created_by", "updated_by"];
+    const FIELD_EDIT = ["role_code", "role_name", "role_group_id", "description", "active", "updated_by"];
+    const FIELD_VIEW = ["id", "role_code", "role_name", "role_group_id", "description", "active", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
-        "role_group_id" => [
-            "operator" => "=",
-        ],
         "id" => [
             "operator" => "=",
         ],
@@ -39,6 +36,9 @@ class Roles extends Model
             "operator" => "=",
         ],
         "role_name" => [
+            "operator" => "=",
+        ],
+        "role_group_id" => [
             "operator" => "=",
         ],
         "description" => [
@@ -60,34 +60,34 @@ class Roles extends Model
             "operator" => "=",
         ],
     ];
-    const FIELD_SEARCHABLE = [];
+    const FIELD_SEARCHABLE = ["role_code", "role_name"];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["role_group_id", "id", "role_code", "role_name", "description", "active", "created_by", "updated_by", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["id", "role_code", "role_name", "role_group_id", "description", "active", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_UNIQUE = [["role_code"]];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
-        "role_group_id" => "bigint",
         "id" => "bigint",
-        "role_code" => "varchar",
-        "role_name" => "varchar",
+        "role_code" => "character_varying",
+        "role_name" => "character_varying",
+        "role_group_id" => "bigint",
         "description" => "text",
-        "active" => "int",
+        "active" => "integer",
         "created_by" => "bigint",
         "updated_by" => "bigint",
-        "created_at" => "timestamp",
-        "updated_at" => "timestamp",
+        "created_at" => "timestamp_without_time_zone",
+        "updated_at" => "timestamp_without_time_zone",
     ];
 
     const FIELD_DEFAULT_VALUE = [
-        "role_group_id" => "NULL",
         "role_code" => "",
         "role_name" => "",
-        "description" => "NULL",
+        "role_group_id" => "",
+        "description" => "",
         "active" => "1",
-        "created_by" => "NULL",
-        "updated_by" => "NULL",
-        "created_at" => "NULL",
-        "updated_at" => "NULL",
+        "created_by" => "",
+        "updated_by" => "",
+        "created_at" => "",
+        "updated_at" => "",
     ];
     const FIELD_RELATION = [
         "role_group_id" => [
@@ -101,15 +101,15 @@ class Roles extends Model
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
+        "role_code" => "required|string|max:255",
+        "role_name" => "required|string|max:255",
         "role_group_id" => "nullable|integer|exists:role_groups,id",
-        "role_code" => "required|max:255",
-        "role_name" => "required|max:255",
-        "description" => "nullable|string|max:65535",
-        "active" => "nullable",
+        "description" => "nullable|string",
+        "active" => "nullable|integer",
         "created_by" => "nullable|integer",
         "updated_by" => "nullable|integer",
-        "created_at" => "nullable|date",
-        "updated_at" => "nullable|date",
+        "created_at" => "nullable",
+        "updated_at" => "nullable",
     ];
     const PARENT_CHILD = [];
     // start custom

@@ -15,7 +15,7 @@ class CreateKodeGroup extends Migration
     {
         Schema::create('kode_group', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nama');
             $table->foreignId('barang_id')->constrained('barang');
             $table->double('stok_akhir');
             $table->double('nilai_akhir');

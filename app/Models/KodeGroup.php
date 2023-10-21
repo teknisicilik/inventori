@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class KodeGroup extends Model
 {
     protected $table = 'kode_group';
-
+     
     const TABLE = "kode_group";
     const FILEROOT = "/kode_group";
     const IS_LIST = true;
@@ -23,31 +23,31 @@ class KodeGroup extends Model
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["barang_id", "created_by", "updated_by", "id", "name", "stok_akhir", "nilai_akhir", "created_at", "updated_at"];
-    const FIELD_ADD = ["barang_id", "created_by", "updated_by", "name", "stok_akhir", "nilai_akhir"];
-    const FIELD_EDIT = ["barang_id", "updated_by", "name", "stok_akhir", "nilai_akhir"];
-    const FIELD_VIEW = ["barang_id", "created_by", "updated_by", "id", "name", "stok_akhir", "nilai_akhir", "created_at", "updated_at"];
+    const FIELD_LIST = ["id", "nama", "barang_id", "stok_akhir", "nilai_akhir", "created_by", "updated_by", "created_at", "updated_at"];
+    const FIELD_ADD = ["nama", "barang_id", "stok_akhir", "nilai_akhir", "created_by", "updated_by"];
+    const FIELD_EDIT = ["nama", "barang_id", "stok_akhir", "nilai_akhir", "updated_by"];
+    const FIELD_VIEW = ["id", "nama", "barang_id", "stok_akhir", "nilai_akhir", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
-        "barang_id" => [
-            "operator" => "=",
-        ],
-        "created_by" => [
-            "operator" => "=",
-        ],
-        "updated_by" => [
-            "operator" => "=",
-        ],
         "id" => [
             "operator" => "=",
         ],
-        "name" => [
+        "nama" => [
+            "operator" => "=",
+        ],
+        "barang_id" => [
             "operator" => "=",
         ],
         "stok_akhir" => [
             "operator" => "=",
         ],
         "nilai_akhir" => [
+            "operator" => "=",
+        ],
+        "created_by" => [
+            "operator" => "=",
+        ],
+        "updated_by" => [
             "operator" => "=",
         ],
         "created_at" => [
@@ -57,32 +57,32 @@ class KodeGroup extends Model
             "operator" => "=",
         ],
     ];
-    const FIELD_SEARCHABLE = [];
+    const FIELD_SEARCHABLE = ["nama"];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["barang_id", "created_by", "updated_by", "id", "name", "stok_akhir", "nilai_akhir", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["id", "nama", "barang_id", "stok_akhir", "nilai_akhir", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
+        "id" => "bigint",
+        "nama" => "character_varying",
         "barang_id" => "bigint",
+        "stok_akhir" => "double_precision",
+        "nilai_akhir" => "double_precision",
         "created_by" => "bigint",
         "updated_by" => "bigint",
-        "id" => "bigint",
-        "name" => "varchar",
-        "stok_akhir" => "double",
-        "nilai_akhir" => "double",
-        "created_at" => "timestamp",
-        "updated_at" => "timestamp",
+        "created_at" => "timestamp_without_time_zone",
+        "updated_at" => "timestamp_without_time_zone",
     ];
 
     const FIELD_DEFAULT_VALUE = [
+        "nama" => "",
         "barang_id" => "",
-        "created_by" => "NULL",
-        "updated_by" => "NULL",
-        "name" => "",
         "stok_akhir" => "",
         "nilai_akhir" => "",
-        "created_at" => "NULL",
-        "updated_at" => "NULL",
+        "created_by" => "",
+        "updated_by" => "",
+        "created_at" => "",
+        "updated_at" => "",
     ];
     const FIELD_RELATION = [
         "barang_id" => [
@@ -90,7 +90,7 @@ class KodeGroup extends Model
             "aliasTable" => "B",
             "linkField" => "id",
             "displayName" => "rel_barang_id",
-            "selectFields" => ["kode"],
+            "selectFields" => ["kode_barang"],
             "selectValue" => "id AS rel_barang_id"
         ],
         "created_by" => [
@@ -112,14 +112,14 @@ class KodeGroup extends Model
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
+        "nama" => "required|string|max:255",
         "barang_id" => "required|integer|exists:barang,id",
-        "created_by" => "nullable|integer|exists:users,id",
-        "updated_by" => "nullable|integer|exists:users,id",
-        "name" => "required|max:255",
         "stok_akhir" => "required",
         "nilai_akhir" => "required",
-        "created_at" => "nullable|date",
-        "updated_at" => "nullable|date",
+        "created_by" => "nullable|integer|exists:users,id",
+        "updated_by" => "nullable|integer|exists:users,id",
+        "created_at" => "nullable",
+        "updated_at" => "nullable",
     ];
     const PARENT_CHILD = [];
     // start custom

@@ -73,7 +73,7 @@ return [
         "end_point" => "/no-auth/roles/dataset",
         "class" => "App\Services\NoAuth\RolesDataset"
     ],
-    
+
     [
         "type" => "GET",
         "end_point" => "/users/list",
@@ -178,5 +178,10 @@ return [
         "type" => "POST",
         "end_point" => "/custom/landing/achievement/form",
         "class" => "App\Services\NoAuth\CustomAchievementForm"
+    ],
+    [
+        "type" => "POST",
+        "end_point" => "/custom/pemasukan",
+        "class" => "App\Services\Custom\Pemasukan\PemasukanDetail"
     ],
 ];

@@ -1,11 +1,10 @@
 <?php
 
-use FontLib\Table\Type\name;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePemasukan extends Migration
+class CreateBatalProduksi extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +13,11 @@ class CreatePemasukan extends Migration
      */
     public function up()
     {
-        Schema::create('pemasukan', function (Blueprint $table) {
+        Schema::create('batal_produksi', function (Blueprint $table) {
             $table->id();
-            $table->string('no_pembelian');
-            $table->date('tgl_pembelian');
-            $table->foreignId('supplier_id')->constrained('supplier');
-            $table->string('no_dokumen');
-            $table->string('tipe_dokumen');
+            $table->string('no_produksi');
+            $table->date('tgl_produksi');
+            $table->foreignId('kode_group_id')->constrained('kode_group');
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
@@ -34,6 +31,6 @@ class CreatePemasukan extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pemasukan');
+        Schema::dropIfExists('batal_produksi');
     }
 }

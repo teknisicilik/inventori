@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 
-class ProduksiDetail extends Model
+class BatalProduksiDetail extends Model
 {
-    protected $table = 'produksi_detail';
+    protected $table = 'batal_produksi_detail';
      
-    const TABLE = "produksi_detail";
-    const FILEROOT = "/produksi_detail";
+    const TABLE = "batal_produksi_detail";
+    const FILEROOT = "/batal_produksi_detail";
     const IS_LIST = true;
     const IS_ADD = true;
     const IS_EDIT = true;
@@ -61,7 +61,7 @@ class ProduksiDetail extends Model
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
         "id" => "bigint",
-        "produksi_id" => "bigint",
+        "produksi_id" => "integer",
         "barang_id" => "bigint",
         "jumlah" => "integer",
         "created_by" => "bigint",
@@ -80,17 +80,9 @@ class ProduksiDetail extends Model
         "updated_at" => "",
     ];
     const FIELD_RELATION = [
-        "produksi_id" => [
-            "linkTable" => "produksi",
-            "aliasTable" => "B",
-            "linkField" => "id",
-            "displayName" => "rel_produksi_id",
-            "selectFields" => ["no_produksi"],
-            "selectValue" => "id AS rel_produksi_id"
-        ],
         "barang_id" => [
             "linkTable" => "barang",
-            "aliasTable" => "C",
+            "aliasTable" => "B",
             "linkField" => "id",
             "displayName" => "rel_barang_id",
             "selectFields" => ["nama"],
@@ -98,7 +90,7 @@ class ProduksiDetail extends Model
         ],
         "created_by" => [
             "linkTable" => "users",
-            "aliasTable" => "D",
+            "aliasTable" => "C",
             "linkField" => "id",
             "displayName" => "rel_created_by",
             "selectFields" => ["username"],
@@ -106,7 +98,7 @@ class ProduksiDetail extends Model
         ],
         "updated_by" => [
             "linkTable" => "users",
-            "aliasTable" => "E",
+            "aliasTable" => "D",
             "linkField" => "id",
             "displayName" => "rel_updated_by",
             "selectFields" => ["username"],
@@ -115,7 +107,7 @@ class ProduksiDetail extends Model
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
-        "produksi_id" => "required|integer|exists:produksi,id",
+        "produksi_id" => "required|integer",
         "barang_id" => "required|integer|exists:barang,id",
         "jumlah" => "required|integer",
         "created_by" => "nullable|integer|exists:users,id",
@@ -142,16 +134,6 @@ class ProduksiDetail extends Model
 
     public static function afterInsert($object, $input)
     {
-        $produksi = Produksi::where('id', $input['produksi_id'])->first();
-        $kode_group = KodeGroup::find($produksi->kode_group_id);
-        $stok = $kode_group->stok_akhir - $input['jumlah'];
-        $nilai_old = $kode_group->nilai_akhir / $kode_group->stok_akhir;
-        $nilai_new = $nilai_old * $input['jumlah'];
-        // kurangi stok
-        $kode_group->stok_akhir = $stok;
-        $kode_group->nilai_akhir = $kode_group->nilai_akhir - $nilai_new;
-        $kode_group->save();
-
         return $input;
     }
 
@@ -172,16 +154,6 @@ class ProduksiDetail extends Model
 
     public static function afterDelete($object, $input)
     {
-        $produksi = Produksi::where('id', $input['produksi_id'])->first();
-        $kode_group = KodeGroup::find($produksi->kode_group_id);
-        $stok = $kode_group->stok_akhir + $input['jumlah'];
-        $nilai_old = $kode_group->nilai_akhir / $kode_group->stok_akhir;
-        $nilai_new = $nilai_old * $input['jumlah'];
-        // kurangi stok
-        $kode_group->stok_akhir = $stok;
-        $kode_group->nilai_akhir = $kode_group->nilai_akhir + $nilai_new;
-        $kode_group->save();
-
         return $input;
     }// end custom
 }

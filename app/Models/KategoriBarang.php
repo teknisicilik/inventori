@@ -23,22 +23,22 @@ class KategoriBarang extends Model
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["created_by", "updated_by", "id", "nama", "created_at", "updated_at"];
-    const FIELD_ADD = ["created_by", "updated_by", "nama"];
-    const FIELD_EDIT = ["updated_by", "nama"];
-    const FIELD_VIEW = ["created_by", "updated_by", "id", "nama", "created_at", "updated_at"];
+    const FIELD_LIST = ["id", "nama", "created_by", "updated_by", "created_at", "updated_at"];
+    const FIELD_ADD = ["nama", "created_by", "updated_by"];
+    const FIELD_EDIT = ["nama", "updated_by"];
+    const FIELD_VIEW = ["id", "nama", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
-        "created_by" => [
-            "operator" => "=",
-        ],
-        "updated_by" => [
-            "operator" => "=",
-        ],
         "id" => [
             "operator" => "=",
         ],
         "nama" => [
+            "operator" => "=",
+        ],
+        "created_by" => [
+            "operator" => "=",
+        ],
+        "updated_by" => [
             "operator" => "=",
         ],
         "created_at" => [
@@ -48,26 +48,26 @@ class KategoriBarang extends Model
             "operator" => "=",
         ],
     ];
-    const FIELD_SEARCHABLE = [];
+    const FIELD_SEARCHABLE = ["nama"];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["created_by", "updated_by", "id", "nama", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["id", "nama", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
+        "id" => "bigint",
+        "nama" => "character_varying",
         "created_by" => "bigint",
         "updated_by" => "bigint",
-        "id" => "bigint",
-        "nama" => "varchar",
-        "created_at" => "timestamp",
-        "updated_at" => "timestamp",
+        "created_at" => "timestamp_without_time_zone",
+        "updated_at" => "timestamp_without_time_zone",
     ];
 
     const FIELD_DEFAULT_VALUE = [
-        "created_by" => "NULL",
-        "updated_by" => "NULL",
         "nama" => "",
-        "created_at" => "NULL",
-        "updated_at" => "NULL",
+        "created_by" => "",
+        "updated_by" => "",
+        "created_at" => "",
+        "updated_at" => "",
     ];
     const FIELD_RELATION = [
         "created_by" => [
@@ -89,11 +89,11 @@ class KategoriBarang extends Model
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
+        "nama" => "required|string|max:255",
         "created_by" => "nullable|integer|exists:users,id",
         "updated_by" => "nullable|integer|exists:users,id",
-        "nama" => "required|max:255",
-        "created_at" => "nullable|date",
-        "updated_at" => "nullable|date",
+        "created_at" => "nullable",
+        "updated_at" => "nullable",
     ];
     const PARENT_CHILD = [];
     // start custom

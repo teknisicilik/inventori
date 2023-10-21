@@ -54,42 +54,42 @@ class RoleGroups extends Model
             "operator" => "=",
         ],
     ];
-    const FIELD_SEARCHABLE = [];
+    const FIELD_SEARCHABLE = ["role_group_name"];
     const FIELD_ARRAY = [];
     const FIELD_SORTABLE = ["id", "role_group_name", "description", "active", "created_by", "updated_by", "created_at", "updated_at"];
-    const FIELD_UNIQUE = [["role_group_name"]];
+    const FIELD_UNIQUE = [["role_group_name", "active", "created_by", "updated_by"], ["role_group_name"]];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
         "id" => "bigint",
-        "role_group_name" => "varchar",
+        "role_group_name" => "character_varying",
         "description" => "text",
-        "active" => "int",
+        "active" => "integer",
         "created_by" => "bigint",
         "updated_by" => "bigint",
-        "created_at" => "timestamp",
-        "updated_at" => "timestamp",
+        "created_at" => "timestamp_without_time_zone",
+        "updated_at" => "timestamp_without_time_zone",
     ];
 
     const FIELD_DEFAULT_VALUE = [
         "role_group_name" => "",
-        "description" => "NULL",
+        "description" => "",
         "active" => "1",
-        "created_by" => "NULL",
-        "updated_by" => "NULL",
-        "created_at" => "NULL",
-        "updated_at" => "NULL",
+        "created_by" => "",
+        "updated_by" => "",
+        "created_at" => "",
+        "updated_at" => "",
     ];
     const FIELD_RELATION = [
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
-        "role_group_name" => "required|max:255",
-        "description" => "nullable|string|max:65535",
-        "active" => "nullable",
+        "role_group_name" => "required|string|max:255",
+        "description" => "nullable|string",
+        "active" => "nullable|integer",
         "created_by" => "nullable|integer",
         "updated_by" => "nullable|integer",
-        "created_at" => "nullable|date",
-        "updated_at" => "nullable|date",
+        "created_at" => "nullable",
+        "updated_at" => "nullable",
     ];
     const PARENT_CHILD = [];
     // start custom

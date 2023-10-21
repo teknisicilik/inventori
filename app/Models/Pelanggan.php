@@ -23,28 +23,28 @@ class Pelanggan extends Model
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["created_by", "updated_by", "id", "kode", "nama", "alamat", "created_at", "updated_at"];
-    const FIELD_ADD = ["created_by", "updated_by", "kode", "nama", "alamat"];
-    const FIELD_EDIT = ["updated_by", "kode", "nama", "alamat"];
-    const FIELD_VIEW = ["created_by", "updated_by", "id", "kode", "nama", "alamat", "created_at", "updated_at"];
+    const FIELD_LIST = ["id", "kode_pelanggan", "nama", "alamat", "created_by", "updated_by", "created_at", "updated_at"];
+    const FIELD_ADD = ["kode_pelanggan", "nama", "alamat", "created_by", "updated_by"];
+    const FIELD_EDIT = ["kode_pelanggan", "nama", "alamat", "updated_by"];
+    const FIELD_VIEW = ["id", "kode_pelanggan", "nama", "alamat", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
-        "created_by" => [
-            "operator" => "=",
-        ],
-        "updated_by" => [
-            "operator" => "=",
-        ],
         "id" => [
             "operator" => "=",
         ],
-        "kode" => [
+        "kode_pelanggan" => [
             "operator" => "=",
         ],
         "nama" => [
             "operator" => "=",
         ],
         "alamat" => [
+            "operator" => "=",
+        ],
+        "created_by" => [
+            "operator" => "=",
+        ],
+        "updated_by" => [
             "operator" => "=",
         ],
         "created_at" => [
@@ -54,30 +54,30 @@ class Pelanggan extends Model
             "operator" => "=",
         ],
     ];
-    const FIELD_SEARCHABLE = [];
+    const FIELD_SEARCHABLE = ["kode_pelanggan", "nama", "alamat"];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["created_by", "updated_by", "id", "kode", "nama", "alamat", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["id", "kode_pelanggan", "nama", "alamat", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
+        "id" => "bigint",
+        "kode_pelanggan" => "character_varying",
+        "nama" => "character_varying",
+        "alamat" => "character_varying",
         "created_by" => "bigint",
         "updated_by" => "bigint",
-        "id" => "bigint",
-        "kode" => "varchar",
-        "nama" => "varchar",
-        "alamat" => "varchar",
-        "created_at" => "timestamp",
-        "updated_at" => "timestamp",
+        "created_at" => "timestamp_without_time_zone",
+        "updated_at" => "timestamp_without_time_zone",
     ];
 
     const FIELD_DEFAULT_VALUE = [
-        "created_by" => "NULL",
-        "updated_by" => "NULL",
-        "kode" => "",
+        "kode_pelanggan" => "",
         "nama" => "",
         "alamat" => "",
-        "created_at" => "NULL",
-        "updated_at" => "NULL",
+        "created_by" => "",
+        "updated_by" => "",
+        "created_at" => "",
+        "updated_at" => "",
     ];
     const FIELD_RELATION = [
         "created_by" => [
@@ -99,13 +99,13 @@ class Pelanggan extends Model
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
+        "kode_pelanggan" => "required|string|max:255",
+        "nama" => "required|string|max:255",
+        "alamat" => "required|string|max:255",
         "created_by" => "nullable|integer|exists:users,id",
         "updated_by" => "nullable|integer|exists:users,id",
-        "kode" => "required|max:255",
-        "nama" => "required|max:255",
-        "alamat" => "required|max:255",
-        "created_at" => "nullable|date",
-        "updated_at" => "nullable|date",
+        "created_at" => "nullable",
+        "updated_at" => "nullable",
     ];
     const PARENT_CHILD = [];
     // start custom

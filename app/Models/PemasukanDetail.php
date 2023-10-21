@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\Models\KodeGroup;
 
 
 class PemasukanDetail extends Model
 {
     protected $table = 'pemasukan_detail';
-
+     
     const TABLE = "pemasukan_detail";
     const FILEROOT = "/pemasukan_detail";
     const IS_LIST = true;
@@ -24,31 +23,31 @@ class PemasukanDetail extends Model
     const IS_EDIT = true;
     const IS_DELETE = true;
     const IS_VIEW = true;
-    const FIELD_LIST = ["barang_id", "created_by", "pemasukan_id", "updated_by", "id", "jumlah", "total_nilai", "created_at", "updated_at"];
-    const FIELD_ADD = ["barang_id", "created_by", "pemasukan_id", "updated_by", "jumlah", "total_nilai"];
-    const FIELD_EDIT = ["barang_id", "pemasukan_id", "updated_by", "jumlah", "total_nilai"];
-    const FIELD_VIEW = ["barang_id", "created_by", "pemasukan_id", "updated_by", "id", "jumlah", "total_nilai", "created_at", "updated_at"];
+    const FIELD_LIST = ["id", "pemasukan_id", "barang_id", "jumlah", "total_nilai", "created_by", "updated_by", "created_at", "updated_at"];
+    const FIELD_ADD = ["pemasukan_id", "barang_id", "jumlah", "total_nilai", "created_by", "updated_by"];
+    const FIELD_EDIT = ["pemasukan_id", "barang_id", "jumlah", "total_nilai", "updated_by"];
+    const FIELD_VIEW = ["id", "pemasukan_id", "barang_id", "jumlah", "total_nilai", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_READONLY = [];
     const FIELD_FILTERABLE = [
-        "barang_id" => [
-            "operator" => "=",
-        ],
-        "created_by" => [
+        "id" => [
             "operator" => "=",
         ],
         "pemasukan_id" => [
             "operator" => "=",
         ],
-        "updated_by" => [
-            "operator" => "=",
-        ],
-        "id" => [
+        "barang_id" => [
             "operator" => "=",
         ],
         "jumlah" => [
             "operator" => "=",
         ],
         "total_nilai" => [
+            "operator" => "=",
+        ],
+        "created_by" => [
+            "operator" => "=",
+        ],
+        "updated_by" => [
             "operator" => "=",
         ],
         "created_at" => [
@@ -60,35 +59,43 @@ class PemasukanDetail extends Model
     ];
     const FIELD_SEARCHABLE = [];
     const FIELD_ARRAY = [];
-    const FIELD_SORTABLE = ["barang_id", "created_by", "pemasukan_id", "updated_by", "id", "jumlah", "total_nilai", "created_at", "updated_at"];
+    const FIELD_SORTABLE = ["id", "pemasukan_id", "barang_id", "jumlah", "total_nilai", "created_by", "updated_by", "created_at", "updated_at"];
     const FIELD_UNIQUE = [];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
-        "barang_id" => "bigint",
-        "created_by" => "bigint",
-        "pemasukan_id" => "bigint",
-        "updated_by" => "bigint",
         "id" => "bigint",
-        "jumlah" => "int",
-        "total_nilai" => "int",
-        "created_at" => "timestamp",
-        "updated_at" => "timestamp",
+        "pemasukan_id" => "bigint",
+        "barang_id" => "bigint",
+        "jumlah" => "integer",
+        "total_nilai" => "integer",
+        "created_by" => "bigint",
+        "updated_by" => "bigint",
+        "created_at" => "timestamp_without_time_zone",
+        "updated_at" => "timestamp_without_time_zone",
     ];
 
     const FIELD_DEFAULT_VALUE = [
-        "barang_id" => "",
-        "created_by" => "NULL",
         "pemasukan_id" => "",
-        "updated_by" => "NULL",
+        "barang_id" => "",
         "jumlah" => "",
         "total_nilai" => "",
-        "created_at" => "NULL",
-        "updated_at" => "NULL",
+        "created_by" => "",
+        "updated_by" => "",
+        "created_at" => "",
+        "updated_at" => "",
     ];
     const FIELD_RELATION = [
+        "pemasukan_id" => [
+            "linkTable" => "pemasukan",
+            "aliasTable" => "B",
+            "linkField" => "id",
+            "displayName" => "rel_pemasukan_id",
+            "selectFields" => ["id"],
+            "selectValue" => "id AS rel_pemasukan_id"
+        ],
         "barang_id" => [
             "linkTable" => "barang",
-            "aliasTable" => "B",
+            "aliasTable" => "C",
             "linkField" => "id",
             "displayName" => "rel_barang_id",
             "selectFields" => ["nama"],
@@ -96,19 +103,11 @@ class PemasukanDetail extends Model
         ],
         "created_by" => [
             "linkTable" => "users",
-            "aliasTable" => "C",
+            "aliasTable" => "D",
             "linkField" => "id",
             "displayName" => "rel_created_by",
             "selectFields" => ["username"],
             "selectValue" => "id AS rel_created_by"
-        ],
-        "pemasukan_id" => [
-            "linkTable" => "pemasukan",
-            "aliasTable" => "D",
-            "linkField" => "id",
-            "displayName" => "rel_pemasukan_id",
-            "selectFields" => ["id"],
-            "selectValue" => "id AS rel_pemasukan_id"
         ],
         "updated_by" => [
             "linkTable" => "users",
@@ -121,14 +120,14 @@ class PemasukanDetail extends Model
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
-        "barang_id" => "required|integer|exists:barang,id",
-        "created_by" => "nullable|integer|exists:users,id",
         "pemasukan_id" => "required|integer|exists:pemasukan,id",
+        "barang_id" => "required|integer|exists:barang,id",
+        "jumlah" => "required|integer",
+        "total_nilai" => "required|integer",
+        "created_by" => "nullable|integer|exists:users,id",
         "updated_by" => "nullable|integer|exists:users,id",
-        "jumlah" => "required",
-        "total_nilai" => "required",
-        "created_at" => "nullable|date",
-        "updated_at" => "nullable|date",
+        "created_at" => "nullable",
+        "updated_at" => "nullable",
     ];
     const PARENT_CHILD = [];
     // start custom
@@ -148,6 +147,34 @@ class PemasukanDetail extends Model
 
     public static function afterInsert($object, $input)
     {
+        // $input["id"]
+        // $input["barang_id"]
+        // $input["jumlah"]
+        // ==
+        // cari pemasukan
+        // cek apakah sudah ada data di kode group jika ada update jika tidak create
+        $pemasukan = Pemasukan::where('id', $input['pemasukan_id'])->first();
+        $nama = $pemasukan->tipe_dokumen .'-'. $pemasukan->no_dokumen;
+        $kode_group = DB::table('kode_group')
+        ->where('nama', $nama)
+        ->where('barang_id', $input['barang_id'])
+        ->first();
+
+        if($kode_group) {
+            $stok_akhir = $kode_group->stok_akhir + $input['jumlah'];
+            $nilai_akhir = $kode_group->nilai_akhir + $input['total_nilai'];
+
+            DB::table('kode_group')
+            ->where('barang_id', $input['barang_id'])
+            ->update(['stok_akhir' => $stok_akhir, 'nilai_akhir' => $nilai_akhir]);
+        } else {
+            DB::table('kode_group')->insert([
+                'nama' => $nama,
+                'barang_id' => $input['barang_id'],
+                'stok_akhir' => $input['jumlah'],
+                'nilai_akhir' => $input['total_nilai']
+            ]);
+        }
         return $input;
     }
 
@@ -168,6 +195,12 @@ class PemasukanDetail extends Model
 
     public static function afterDelete($object, $input)
     {
+        $pemasukan = Pemasukan::where('id', $input['pemasukan_id'])->first();
+        $nama = $pemasukan->tipe_dokumen .'-'. $pemasukan->no_dokumen;
+        DB::table('kode_group')
+        ->where('nama', $nama)
+        ->where('barang_id', $input['barang_id'])
+        ->delete();
         return $input;
     }// end custom
 }

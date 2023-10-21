@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class CreatePelanggan extends Migration
+class CreateSupplier extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,10 @@ class CreatePelanggan extends Migration
      */
     public function up()
     {
-        Schema::create('pelanggan', function (Blueprint $table) {
+        Schema::create('supplier', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pelanggan');
+            $table->string('kode_supplier');
             $table->string('nama');
-            $table->string('alamat');
             $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
@@ -26,18 +25,16 @@ class CreatePelanggan extends Migration
         $data = [
             [
                 "id" => 1,
-                "kode_pelanggan" => "ASML",
-                "nama" => "Auri SML",
-                "alamat" => "Lombok"
+                "kode_supplier" => 'SP-1',
+                "nama" => "PT. Bajaenteng",
             ],
             [
                 "id" => 2,
-                "kode_pelanggan" => "ASMT",
-                "nama" => "Auri SMT",
-                "alamat" => "Terboyo"
+                "kode_supplier" => 'SP-2',
+                "nama" => "PT. Bajaberat",
             ]
         ];
-        DB::table('pelanggan')->insert($data);
+        DB::table('supplier')->insert($data);
     }
 
     /**
@@ -47,6 +44,6 @@ class CreatePelanggan extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pelanggan');
+        Schema::dropIfExists('supplier');
     }
 }

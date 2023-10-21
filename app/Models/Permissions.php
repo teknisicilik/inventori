@@ -57,45 +57,45 @@ class Permissions extends Model
             "operator" => "=",
         ],
     ];
-    const FIELD_SEARCHABLE = [];
+    const FIELD_SEARCHABLE = ["permission_code", "permission_name", "permission_group", "application"];
     const FIELD_ARRAY = [];
     const FIELD_SORTABLE = ["id", "permission_code", "permission_name", "permission_group", "application", "description", "active", "created_at", "updated_at"];
     const FIELD_UNIQUE = [["permission_code"]];
     const FIELD_UPLOAD = [];
     const FIELD_TYPE = [
         "id" => "bigint",
-        "permission_code" => "varchar",
-        "permission_name" => "varchar",
-        "permission_group" => "varchar",
-        "application" => "varchar",
+        "permission_code" => "character_varying",
+        "permission_name" => "character_varying",
+        "permission_group" => "character_varying",
+        "application" => "character_varying",
         "description" => "text",
-        "active" => "int",
-        "created_at" => "timestamp",
-        "updated_at" => "timestamp",
+        "active" => "integer",
+        "created_at" => "timestamp_without_time_zone",
+        "updated_at" => "timestamp_without_time_zone",
     ];
 
     const FIELD_DEFAULT_VALUE = [
         "permission_code" => "",
         "permission_name" => "",
-        "permission_group" => "NULL",
-        "application" => "NULL",
+        "permission_group" => "",
+        "application" => "",
         "description" => "",
         "active" => "1",
-        "created_at" => "NULL",
-        "updated_at" => "NULL",
+        "created_at" => "",
+        "updated_at" => "",
     ];
     const FIELD_RELATION = [
     ];
     const CUSTOM_SELECT = "";
     const FIELD_VALIDATION = [
-        "permission_code" => "required|max:100",
-        "permission_name" => "required|max:200",
-        "permission_group" => "nullable|max:200",
-        "application" => "nullable|max:200",
-        "description" => "required|string|max:65535",
-        "active" => "nullable",
-        "created_at" => "nullable|date",
-        "updated_at" => "nullable|date",
+        "permission_code" => "required|string|max:100",
+        "permission_name" => "required|string|max:200",
+        "permission_group" => "nullable|string|max:200",
+        "application" => "nullable|string|max:200",
+        "description" => "required|string",
+        "active" => "nullable|integer",
+        "created_at" => "nullable",
+        "updated_at" => "nullable",
     ];
     const PARENT_CHILD = [];
     // start custom
